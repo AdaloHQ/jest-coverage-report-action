@@ -12,6 +12,7 @@ export const getRawCoverage = async (
 > => {
     if (branch) {
         // NOTE: It is possible that the 'git fetch -all' command will fail due to different file permissions, but this is unlikely to happen with github actions, so the 'try ~ catch' block is not used.
+        await exec(`git config --global --add safe.directory /github/workspace`);
         await exec(`git fetch --all --depth=1`);
         await exec(`git checkout -f ${branch}`);
     }
